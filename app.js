@@ -19,3 +19,7 @@ app.get('/', (req, res) => {
 });
 
 module.exports = app;
+
+app.get('/test', (req, res) => {
+  res.json({ message: 'Test JSON from backend' });
+});
