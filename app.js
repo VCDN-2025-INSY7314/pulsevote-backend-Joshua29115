@@ -3,7 +3,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const dotenv = require('dotenv');
 const authRoutes = require("./routes/authRoutes");
-const { protect } = require("./middleware/authMiddleware");
+const { protect, requireRole } = require("./middleware/authMiddleware");
 
 dotenv.config();
 
@@ -31,7 +31,7 @@ app.get('/test', (req, res) => {
   res.json({ message: 'Test JSON from backend' });
 });
 
-app.get("/api/protected", protect, (req, res) => {
+app.get("/api/protected", protect, requireRole('admin'), (req, res) => {
   res.json({
     message: `Welcome, user ${req.user.id}! You have accessed protected data.`,
     timestamp: new Date()
